@@ -8,8 +8,6 @@ set(CMAKE_COMPILE_WARNING_AS_ERROR TRUE)
 # Generate compile_commands.json
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-
-
 # Dependencies
 set(RAYLIB_VERSION 5.5)
 
@@ -89,3 +87,19 @@ if (APPLE)
     target_link_libraries(${PROJECT_NAME} "-framework Cocoa")
     target_link_libraries(${PROJECT_NAME} "-framework OpenGL")
 endif()
+
+# Hide the console window on Windows for Release builds
+if(WIN32)
+    set_target_properties(${PROJECT_NAME} PROPERTIES
+        WIN32_EXECUTABLE $<OR:$<CONFIG:Release>,$<CONFIG:MinSizeRel>>
+    )
+
+    if(MSVC)
+        # This allows use of 'int main()' instead of 'WinMain' for consistency.
+        target_link_options(${PROJECT_NAME} PRIVATE
+            "$<$<AND:$<PLATFORM_ID:Windows>,$<OR:$<CONFIG:Release>,$<CONFIG:MinSizeRel>>>:/ENTRY:mainCRTStartup>"
+        )
+    endif()
+endif()
+
+
