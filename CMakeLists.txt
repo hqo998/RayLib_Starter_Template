@@ -1,4 +1,5 @@
-cmake_minimum_required(VERSION 3.24...3.30)
+set(CMAKE_WARN_DEPRECATED OFF CACHE BOOL "" FORCE)
+cmake_minimum_required(VERSION 3.50)
 project(YOUR_PROJECT_NAME_HERE LANGUAGES C CXX)
 
 include(FetchContent)
