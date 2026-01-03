@@ -1,12 +1,7 @@
-name: Windows-Build
+name: Windows-Build-Test
 
 on:
-  push:
-    tags:
-      - 'v*' # Run only when a tag starting with 'v' is pushed
-
-permissions:
-  contents: write
+    workflow_dispatch:
 
 jobs:
   release:
